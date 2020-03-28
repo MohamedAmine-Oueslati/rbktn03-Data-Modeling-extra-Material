@@ -25,8 +25,31 @@
 //  Structure and Interpretation of Computer Programs (Gerald Jay Sussman, Hal Abelson)
 //  NOTE: Did you account for the possibility of two authors? If not, update your model to handle multiple authors.
 //  Three other books (see this list for ideas)
+var books = {
+title : 'harry potter and the sorcerers stone',
+author : 'j.k. rowling',
+genre : 'adventure',
+numberOfPages : 456,
+description : 'it is a great book'
+} ; 
 
 // 3.You may have been rewriting the same type of object over and over. We need to stay DRY (Do Not Repeat). Write a function makeBook that takes as arguments different attributes of a book and returns an object representing that book that has the proper structure (we call this a factory function).
+function makeBook(title,author,genre,numberOfPages,description){
+	return {
+		title : title,
+		author: author,
+		genre : genre,
+		numberOfPages : numberOfPages,
+		description : description
+	}
+}
+
+var book1 = makeBook('Romeo and Juliet','William Shakespeare','romance',300,'a very nice book');
+var book2 = makeBook('Structure and Interpretation of Computer Programs', 'Gerald Jay Sussman, Hal Abelson', 'computer science',600, 'beneficial book');
+var book3 = makeBook('harry potter and the sorcerers stone','j.k. rowling','fantasy',309,'The first novel in the Harry Potter series');
+var book4 = makeBook('Ulysses','James Joyce','Modernist novel',730,'one of the most important works of modernist literature');
+var book5 = makeBook('Beloved','Toni Morrison','American Literature',324,'inspired by the life of Margaret Garner');
+
 
 // 4.Look at one of your book objects in the console. This is the object inspector. The object inspector is nice to have, but it will be easier to have a function to display the more important information easily. Write a function called displayBook that takes a book as an argument, and returns the important information in a more readable way, for example:
 
@@ -37,8 +60,12 @@
 //  displayBook(sorcerersStone);
 //  // => 'Harry Potter and the Sorcerer's Stone, by J.K. Rowling -- fantasy, $24.99'
 // The output string above is only an example. What information is most important to you? How can you make that information easier to read for people?
+function displayBook(books){
+	return books.title + ', '+ books.author + ', ' + books.genre ;
+}
 
 // 5.Create an array called books that holds all of the books that you created above.
+var array = [book1, book2, book3, book4, book5] ;
 
 // 6.Your function displayBook can be used to display a single book as a string. Now, write a function displayBooks that, given an array of books, returns a single string consisting of all of the books. Use the function displayBook to format all of the books. Each book should be numbered and separated with a newline (we also call this a line break) character so that each book is shown on a separate line in the console. The newline character is specified with a special escaped character in a string:
 
@@ -48,6 +75,13 @@
 //  }
 //  displayBooks(books);
 //  // => '1. Harry Potter and the Sorcerer's Stone... /n 2. Snow Crash, ...'
+function displayBooks (array) {
+ 	var display = '';
+ 	for ( var i = 0 ; i < array.length ; i++ ) {
+ 		display = display + i + '. ' + displayBook(array[i]) + "\n" ; 
+ 	}
+ 	return display ;
+ }
 
 // 7.Write a function searchBooks that, given a query and an array of books, searches the array of books for 'matching' books. You will decide what way you want to write your search algorithm. Here are some things to think about: What fields will be searched? Will you search multiple fields simultaneously (it might be best to start with one field, e.g.title)? Should the search be case-sensitive? How will the search work? Will it only work from the beginning of a field, or from anywhere within? some hints:
 
@@ -59,8 +93,30 @@
 //  'Harry Potter'.indexOf('dog');  // => -1
 //  A good starting point would be to write a function isMatch that accepts two arguments – the query and a single book –
 //  and returns true if the book is a match, and false otherwise.
+function searchBooks (query , array) {
+    var str = '' ;
+	for ( var i=0 ; i < array.length ; i++) {
+		str = array[i].title.toLowerCase() ;
+		if (str.indexOf(query.toLowerCase()) !== -1) {
+			console.log(array[i]) ;
+			return true
+		}
+	}
+		return false
+}
 
 // 8.Write a function removeBook that, given a book's title and an array of books, returns a new array of books that does not contain the book with the provided title.
+function removeBook(title,array){
+	var arr = [] ;
+	var j =0
+for ( var i =0 ; i<array.length ; i++){
+	if(array[i].title.indexOf(title) !== 0){
+		arr[j] = array[i] ;
+		j++
+	}
+}
+return arr ;
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~~ More Practice ~~~~~~~~~~~~~~~~~~~~~~
 
