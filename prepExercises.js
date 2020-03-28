@@ -212,12 +212,68 @@ function searchMovies (Movies , query) {
 //  Add some tags to multiple books, like 'bestseller' or 'pulitzer'.
 //  Extend
 //  Extend searchBooks to work with tags.
+function removeTag (Movie,Tag){
+    for (var i =0 ; i<Movies.length ; i++){
+	    if(Movies[i].title === Movie){
+		    delete Movies[i][Tag] ;
+	}
+}
+    return Movies ;
+}
+
+
+function addTag (Movie,Tag,element){
+    for (var i =0 ; i<Movies.length ; i++){
+	    if(Movies[i].title === Movie){
+	    	if (Array.isArray(Movies[i][Tag])){
+	    		Movies[i][Tag].push(element)
+	    	}
+	    	else {
+	    		Movies[i][Tag] = element ;
+	    	}
+	}
+}
+    return Movies ;
+}
 
 // 2.Let's revisit your removeBooks function: what would happen if you had two books with the same title, but different authors? Would your algorithm remove both books? This is a common problem that we usually solve by providing a unique identifier for each item.
 
 //  Modify all of your books to contain an id key with a unique value. This can be an integer or a unique string (like an ISBN).
 //  Change removeBook to use the book's id for lookups instead of its title.
+function addId (array) {
+	for (var i = 0 ; i < array.length ; i++) {
+		array[i]['Id'] = i ;
+	}
+	return array ;
+}
 
+function removeBook(num,array){
+for ( var i =0 ; i<array.length ; i++){
+	if(array[i]['Id'] === num){
+		array.splice(i,1) ;
+	}
+}
+return array ;
+}
 // 3.Can you think of a way to write a more abstract displayItem function that works for books and movies (depending on how you have structured your objects, this may or may not work well)?
 
+function displayItem(obj){
+	// this works only if both movies and books have the same items ... the same items i can find are (title,releaseDate, genre)
+	return obj.title + ', ' + obj.ReleaseDate + ', ' + obj.genre ;
+}
+
 // 4.Write a more general searchItems function that accepts as parameters the query, items to search, and an array of keys that should be searched. Refactor searchMovies and searchBooks to use this function.
+function searchItems (query , array , item) {
+    var str = '' ;
+	for ( var i=0 ; i < array.length ; i++) {
+		str = array[i].title.toLowerCase() ;
+		if (str.indexOf(query.toLowerCase()) !== -1) {
+			if (array[i][item]) {
+				console.log(array[i][item])
+	     		return true
+			}
+			return 'item not found'
+		}
+	}
+		return 'book or movie not found'
+}
