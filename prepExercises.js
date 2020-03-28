@@ -127,24 +127,79 @@ return arr ;
 //  But if you want to include their roles, maybe you want to use something else. Did he/she win any awards?
 //   Even the rating of a movie is open to interpretation –
 //  is the rating from critics? Rotten Tomatoes (a famous American website that rates how good movies are)? Some combination?
+var movie = {
+title : 'twilight',
+Director : 'Catherine Hardwicke',
+ReleaseDate : 2008 ,
+Rating : 5.2 ,
+
+} ; 
 
 // 2.Make five more movie objects using the same format you decided upon.
-
 // 3. Write a factory function for movies. HINT: What is a factory function? We explained it above!
+function makeMovie(title,Director,ReleaseDate,Rating,Awards,Stars){
+	return {
+		title : title,
+		Director: Director,
+		ReleaseDate : ReleaseDate,
+		Rating : Rating,
+		Awards : Awards,
+		Stars : Stars
+	}
+}
+
+var Movie1 = makeMovie('the vow','Michael Sucsy', 2012 , 6.8 , [] , [ 'Rachel McAdams', 'Channing Tatum' ] )
+var Movie2 = makeMovie('Mirage' , 'Oriol Paulo' , 2018 , 7.4 , [] , ['Adriana Ugarte' , 'Álvaro Morte' , 'Javier Gutiérrez Álvarez'])
+var Movie3 = makeMovie('twilight' , 'Catherine Hardwicke' , 2008 , 5.2 , ['MTV Movie Award for Best Kiss','Teen Choice Award for Soundtrack of the Year'] ,  ['Kristen Stewart', 'Robert Pattinson'] )
+var Movie4 = makeMovie('Ted','Seth MacFarlane', 2012 , 6.9 , [] , ['Mark Wahlberg'] )
+var Movie5 = makeMovie('Titanic' , 'James Cameron' , 1997 , 7.8 , ['Academy Award for Best Original Music Score','MTV Movie & TV Award for Best Movie','Producers Guild of America Award for Best Theatrical Motion Picture']  , ['Leonardo DiCaprio','Kate Winslet'] )
+
 
 // 4.Write a function displayMovie that works like displayBook, but for movies.
+function displayMovie(movie){
+	return movie.title + ', '+ movie.Director + ', ' + movie.ReleaseDate +', ' + movie.Rating ;
+}
 
 // 5.Write a function displayCast that displays the cast of a movie, including: Role , Actor/Actress name
+function displayCast(movie){
+	return movie.title + ', '+ movie.Stars + ', ' + movie.Awards ;
+}
 
 // 6.Create an array to hold the movies that you created called movies, and add your movies to it.
+var Movies = [Movie1, Movie2, Movie3, Movie4, Movie5] ;
 
 // 7.As before, write a displayMovies function that works just like displayBooks.
+function displayMovies (array) {
+ 	var display = '';
+ 	for ( var i = 0 ; i < array.length ; i++ ) {
+ 		display = display + i + '. ' + displayMovie(array[i]) + "\n" ; 
+ 	}
+ 	return display ;
+ }
 
 // 8. Calculate the average length of your movies by writing a function called averageLength that will accept an array of movies as a parameter and output the average length. The difficulty of this problem is dependent on how you have chosen to store the duration.
 
 // How about averageRating?
+function averageRating (array) {
+       sum = 0 ;
+	for (var i = 0 ; i < array.length ; i++) {
+		sum += array[i].Rating ;
+	}
+	return sum / array.length ;
+}
 
 // 9.How about searching your movies array? Write a function that works like searchBooks, but for movies.
+function searchMovies (Movies , query) {
+    var str = '' ;
+	for ( var i=0 ; i < Movies.length ; i++) {
+		str = Movies[i].title.toLowerCase() ;
+		if (str.indexOf(query.toLowerCase()) !== -1) {
+			console.log(Movies[i]) ;
+			return true
+		}
+	}
+		return false
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~~ Advanced ~~~~~~~~~~~~~~~~~~~~~~
 
